@@ -1,4 +1,3 @@
-
 import './painter.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -70,95 +69,101 @@ class _CircleNavigationBarState extends State<CircleNavigationBar>
               bottom: widget.navbarHeight - 90,
               child: AnimatedBuilder(
                 animation: _rotationController,
-                builder: (context, child) => CustomPaint(
-                  size: Size(180, 180),
-                  painter: CirclesPainter(_animation,
-                      colors: widget.circleLayersColors),
+                builder: (context, child) => IgnorePointer(
+                  ignoring: _rotationController.value == 0.0,
+                  child: CustomPaint(
+                    size: Size(180, 180),
+                    painter: CirclesPainter(_animation,
+                        colors: widget.circleLayersColors),
+                  ),
                 ),
               ),
             ),
-            Positioned(
-                bottom: widget.navbarHeight - 90,
-                child: AnimatedBuilder(
-                  animation: _rotationController,
-                  builder: (context, child) => IgnorePointer(
-                    ignoring: _animation.value != 1.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
+            AnimatedBuilder(
+                animation: _rotationController,
+                builder: (context, child) => Positioned(
+                      bottom: widget.navbarHeight - 90,
+                      child: IgnorePointer(
+                        ignoring: _rotationController.value == 0.0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          height: 180,
+                          width: 180,
+                          child: Stack(
+                            children: <Widget>[
+                              Align(
+                                  alignment: Alignment(
+                                    ((75) / 90) *
+                                        cos((pi *
+                                                2 /
+                                                6 *
+                                                (6 + 3 * _animation.value)) +
+                                            pi / 6),
+                                    ((75) / 90) *
+                                        sin((pi *
+                                                2 /
+                                                6 *
+                                                (6 + 3 * _animation.value)) +
+                                            pi / 6),
+                                  ),
+                                  child: IconButton(
+                                      icon: widget.circleIcons[0].icon,
+                                      color: widget.circleIconsColor,
+                                      onPressed:
+                                          widget.circleIcons[0].onPressed)),
+                              Align(
+                                  alignment: Alignment(
+                                    ((75) / 90) *
+                                        cos((pi *
+                                                2 /
+                                                6 *
+                                                (1 + 3 * _animation.value)) +
+                                            pi / 6),
+                                    ((75) / 90) *
+                                        sin((pi *
+                                                2 /
+                                                6 *
+                                                (1 + 3 * _animation.value)) +
+                                            pi / 6),
+                                  ),
+                                  child: IconButton(
+                                      icon: widget.circleIcons[1].icon,
+                                      color: widget.circleIconsColor,
+                                      onPressed:
+                                          widget.circleIcons[1].onPressed)),
+                              Align(
+                                  alignment: Alignment(
+                                    ((75) / 90) *
+                                        cos((pi *
+                                                2 /
+                                                6 *
+                                                (2 + 3 * _animation.value)) +
+                                            pi / 6),
+                                    ((75) / 90) *
+                                        sin((pi *
+                                                2 /
+                                                6 *
+                                                (2 + 3 * _animation.value)) +
+                                            pi / 6),
+                                  ),
+                                  child: IconButton(
+                                      icon: widget.circleIcons[2].icon,
+                                      color: widget.circleIconsColor,
+                                      onPressed:
+                                          widget.circleIcons[2].onPressed)),
+                            ],
+                          ),
+                        ),
                       ),
-                      height: 180,
-                      width: 180,
-                      child: Stack(
-                        children: <Widget>[
-                          Align(
-                              alignment: Alignment(
-                                ((75) / 90) *
-                                    cos((pi *
-                                            2 /
-                                            6 *
-                                            (6 + 3 * _animation.value)) +
-                                        pi / 6),
-                                ((75) / 90) *
-                                    sin((pi *
-                                            2 /
-                                            6 *
-                                            (6 + 3 * _animation.value)) +
-                                        pi / 6),
-                              ),
-                              child: IconButton(
-                                  icon: widget.circleIcons[0].icon,
-                                  color: widget.circleIconsColor,
-                                  onPressed: widget.circleIcons[0].onPressed)),
-                          Align(
-                              alignment: Alignment(
-                                ((75) / 90) *
-                                    cos((pi *
-                                            2 /
-                                            6 *
-                                            (1 + 3 * _animation.value)) +
-                                        pi / 6),
-                                ((75) / 90) *
-                                    sin((pi *
-                                            2 /
-                                            6 *
-                                            (1 + 3 * _animation.value)) +
-                                        pi / 6),
-                              ),
-                              child: IconButton(
-                                  icon: widget.circleIcons[1].icon,
-                                  color: widget.circleIconsColor,
-                                  onPressed: widget.circleIcons[1].onPressed)),
-                          Align(
-                              alignment: Alignment(
-                                ((75) / 90) *
-                                    cos((pi *
-                                            2 /
-                                            6 *
-                                            (2 + 3 * _animation.value)) +
-                                        pi / 6),
-                                ((75) / 90) *
-                                    sin((pi *
-                                            2 /
-                                            6 *
-                                            (2 + 3 * _animation.value)) +
-                                        pi / 6),
-                              ),
-                              child: IconButton(
-                                  icon: widget.circleIcons[2].icon,
-                                  color: widget.circleIconsColor,
-                                  onPressed: widget.circleIcons[2].onPressed)),
-                        ],
-                      ),
-                    ),
-                  ),
-                )),
+                    )),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: navBarHeight,
-        margin: EdgeInsets.symmetric(horizontal: widget.margin),
-                width: constraints.maxWidth ,
+                margin: EdgeInsets.symmetric(horizontal: widget.margin),
+                width: constraints.maxWidth,
                 decoration: BoxDecoration(
                     color: widget.navBarColor,
                     borderRadius: widget.borderRadius,
@@ -263,8 +268,6 @@ class _AddButtonState extends State<AddButton> {
     );
   }
 }
-
-
 
 class CustomIcon {
   Widget icon;

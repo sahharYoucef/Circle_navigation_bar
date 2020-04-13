@@ -24,14 +24,32 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.amber,
       body: Stack(
+        alignment: Alignment.center,
         children: <Widget>[
+          Positioned(
+              bottom: 110,
+              child: RaisedButton(onPressed: () {
+                print('hi');
+              })),
           Align(
             alignment: Alignment.bottomCenter,
             child: CircleNavigationBar(
               circleIcons: [
-                CustomIcon(icon: Icon(Icons.call), onPressed: () {}),
-                CustomIcon(icon: Icon(Icons.message), onPressed: () {}),
-                CustomIcon(icon: Icon(Icons.accessible), onPressed: () {}),
+                CustomIcon(
+                    icon: Icon(Icons.call),
+                    onPressed: () {
+                      print(1);
+                    }),
+                CustomIcon(
+                    icon: Icon(Icons.message),
+                    onPressed: () {
+                      print(2);
+                    }),
+                CustomIcon(
+                    icon: Icon(Icons.accessible),
+                    onPressed: () {
+                      print(3);
+                    }),
               ],
               navBarIcons: [
                 CustomIcon(icon: Icon(Icons.home), onPressed: () {}),
